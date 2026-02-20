@@ -2,6 +2,7 @@
 
 import urllib
 from typing import Final, cast
+from xxlimited import Str
 
 from mashumaro.codecs.basic import BasicDecoder
 
@@ -156,18 +157,22 @@ class Connection:
         track_id: str,
         limit: int | None = None,
         fields: list[ItemFields] | None = None,
+        enable_images: bool | None = None
     ) -> MediaItems[Track]:
         """Return similar tracks."""
-        params: dict[str, str] = {}
+        params: dict[str, str | list[str]] = {}
 
         if limit:
             params["limit"] = str(limit)
 
         if fields:
-            params["fields"] = ",".join(f.value for f in fields)
+            params["fields"] = [f.value for f in fields]
+
+        if enable_images:
+            params["enableImages"] = str(enable_images)
 
         resp = await self._session.get_json(
-            f"/Items/{track_id}/Similar",
+            f"/Items/{track_id}/InstantMix",
             params=params or {},
         )
         return self._tracks_decoder.decode(resp)
