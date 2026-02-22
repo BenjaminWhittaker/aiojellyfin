@@ -1,5 +1,6 @@
 """A simple library for talking to a Jellyfin server."""
 
+from tkinter.constants import TRUE
 import urllib
 from typing import Final, cast
 from xxlimited import Str
@@ -157,7 +158,7 @@ class Connection:
         track_id: str,
         limit: int | None = None,
         fields: list[ItemFields] | None = None,
-        enable_images: bool | None = None
+        enable_images: bool = True
     ) -> MediaItems[Track]:
         """Return similar tracks."""
         params: dict[str, str | list[str]] = {}
