@@ -1,9 +1,7 @@
 """A simple library for talking to a Jellyfin server."""
 
-from tkinter.constants import TRUE
 import urllib
 from typing import Final, cast
-from xxlimited import Str
 
 from mashumaro.codecs.basic import BasicDecoder
 
